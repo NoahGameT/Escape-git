@@ -14,6 +14,8 @@ public class Infected extends SmoothMover
      */
     public void act() 
     {
-        // Add your action code here.
+        Actor player = (Actor)getWorld().getObjects(Player.class).get(0); // gets reference to tank
+        turnTowards(player.getX(), player.getY()); // turn toward tank
+        move(2);
     }    
 }

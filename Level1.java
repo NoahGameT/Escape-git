@@ -17,7 +17,7 @@ public class Level1 extends Omgeving
     {    
         super(WorldSizeX, WorldSizeY, PixelSize);
         Actor Player = new Player();
-        Actor Politie = new Politie(400, 200, 600, 600, 1);
+        Actor Politie = new Politie(400, 200, 600, 600, 6);
         MuurPlaatsingen();
         
         addObject(Politie, 400, 200);

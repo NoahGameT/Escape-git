@@ -17,7 +17,7 @@ public class Player extends SmoothMover
     public int playerDimensionX = playerImage.getWidth();
     public int playerDimensionY = playerImage.getHeight();
     
-    public int movementSpeed = 1; // Pixels per frame.
+    public int movementSpeed = 3; // Pixels per frame.
     private boolean UpInput = true;
     private boolean LeftInput = true;
     private boolean RightInput = true;
@@ -32,6 +32,7 @@ public class Player extends SmoothMover
     {
         movePlayer();
         Collision(Muur.class);
+        Collision(Politie.class);
     }
     
     private int[] getPlayerInput() {
