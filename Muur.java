@@ -12,4 +12,5 @@ public class Muur extends Actor
         image.fill();
         setImage(image);
     }
+    
 }

@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Player extends Actor
+public class Player extends SmoothMover
 {
     /// 
     /// Player class
@@ -17,7 +17,7 @@ public class Player extends Actor
     public int playerDimensionX = playerImage.getWidth();
     public int playerDimensionY = playerImage.getHeight();
     
-    public int movementSpeed = 5; // Pixels per frame.
+    public int movementSpeed = 1; // Pixels per frame.
     private boolean UpInput = true;
     private boolean LeftInput = true;
     private boolean RightInput = true;
@@ -28,11 +28,10 @@ public class Player extends Actor
         System.out.println("X: " + playerDimensionX + " Y: " + playerDimensionY);
     }
     
-    
     public void act() 
     {
         movePlayer();
-        WallCollision();
+        Collision(Muur.class);
     }
     
     private int[] getPlayerInput() {
@@ -101,7 +100,7 @@ public class Player extends Actor
                return false;
            }           
         } else if(_dir == 'd') { 
-            
+           
            if (getY() >= (Omgeving.WorldSizeY - playerDimensionY/2)) {
                return true;
            } else {
@@ -113,11 +112,24 @@ public class Player extends Actor
             return false;
             
         }
-    }    
+    }
     
-    public void WallCollision() {
-        if(isTouching(Muur.class)) {
-            WallCollide = true;
+    public void Collision(java.lang.Class collider) {
+        Actor actor = getOneIntersectingObject(collider);
+        if(actor != null) {
+            int x = actor.getX();
+            int y = actor.getY();
+            System.out.println("Collision: " + x + " " + y);
+            if(x < getX()) {
+                LeftInput = false;
+            } else {
+                RightInput = false;
+            }
+            if (y < getY()) {
+                UpInput = false;
+            } else {
+                DownInput = false;
+            }
         }
     }
 }

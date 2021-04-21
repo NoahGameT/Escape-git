@@ -13,12 +13,20 @@ public class Omgeving extends World
      * Constructor for objects of class Omgeving.
      * 
      */
+    public static int speed = 60;
+    
+    
+    
     public Omgeving(int WSX, int WSY, int PS)
     {   
-        super(WSX, WSY, PS);        
+        super(WSX, WSY, PS);
+        Greenfoot.setSpeed(speed);
     }
     
     public static int WorldSizeX = 1200;
     public static int WorldSizeY = 800;
     public static int PixelSize = 1;
+    
+    
+    
 }
