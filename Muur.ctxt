@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Muur
+comment1.params=width\ height\ color
+comment1.target=Muur(int,\ int,\ greenfoot.Color)
+comment2.params=width\ height\ color
+comment2.target=void\ generateWall(int,\ int,\ greenfoot.Color)
+numComments=3
