@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.awt.image.BufferedImage;
 /**
  * Write a description of class Player here.
  * 
@@ -17,20 +17,32 @@ public class Player extends SmoothMover
     public int playerDimensionX = playerImage.getWidth();
     public int playerDimensionY = playerImage.getHeight();
     
-    public int movementSpeed = 3; // Pixels per frame.
+    public int movementSpeed = 1; // Pixels per frame.
     private boolean UpInput = true;
     private boolean LeftInput = true;
     private boolean RightInput = true;
     private boolean DownInput = true;
     private boolean WallCollide = false;
     
+    // Animatie variabelen
+    private int animNum = 0;
+    private int animationTime = 0;
+    private boolean animating = false;
+    
+    GreenfootImage[] loopDownImages = {new GreenfootImage("/lopenNormal/down/loop-animatie-1.png"), new GreenfootImage("/lopenNormal/down/loop-animatie-2.png"), new GreenfootImage("/lopenNormal/down/loop-animatie-3.png"), new GreenfootImage("/lopenNormal/down/loop-animatie-4.png")};
+    GreenfootImage[] loopUpImages = {new GreenfootImage("/lopenNormal/up/loop-up-animatie-1.png"), new GreenfootImage("/lopenNormal/up/loop-up-animatie-2.png"), new GreenfootImage("/lopenNormal/up/loop-up-animatie-3.png"), new GreenfootImage("/lopenNormal/up/loop-up-animatie-4.png")};
+    GreenfootImage[] loopRightImages = {new GreenfootImage("/lopenNormal/right/loop-right-animatie-1.png"), new GreenfootImage("/lopenNormal/right/loop-right-animatie-2.png"), new GreenfootImage("/lopenNormal/right/loop-right-animatie-3.png"), new GreenfootImage("/lopenNormal/right/loop-right-animatie-4.png")};
+    GreenfootImage[] loopLeftImages = {new GreenfootImage("/lopenNormal/left/loop-left-animatie-1.png"), new GreenfootImage("/lopenNormal/left/loop-left-animatie-2.png"), new GreenfootImage("/lopenNormal/left/loop-left-animatie-3.png"), new GreenfootImage("/lopenNormal/left/loop-left-animatie-4.png")};
     public Player() {
         System.out.println("X: " + playerDimensionX + " Y: " + playerDimensionY);
+        GreenfootImage img = getImage();
+        img.scale(50,80);
     }
     
     public void act() 
     {
         movePlayer();
+        normalizeInputRestrictions();
         Collision(Muur.class);
         Collision(Politie.class);
     }
@@ -71,6 +83,53 @@ public class Player extends SmoothMover
         if(atEdge('d')) {
             DownInput = false;
         }
+        AnimatePlayer(playerInput);
+    }
+    
+    private void AnimatePlayer(int[] _playerInput) {
+        if(_playerInput[0] == 0 && _playerInput[1] == 0) {
+            StopAnimation();
+        }
+        else if (_playerInput[1] > 0) {
+            PlayAnimation(loopDownImages);
+        } else if (_playerInput[1] < 0) {
+            PlayAnimation(loopUpImages);
+        } else if (_playerInput[0] > 0) {
+            PlayAnimation(loopRightImages);
+        } else if (_playerInput[0] < 0) {
+            PlayAnimation(loopLeftImages);
+        } else {
+            StopAnimation();
+        }
+    }
+    
+    private void PlayAnimation(GreenfootImage[] images) {
+        if (animNum == images.length) {
+            animNum = 0;
+        }
+        if(animating) {
+           setImage(images[animNum]);
+           GreenfootImage image = getImage();
+           image.scale(50, 80);
+        } else {
+           animNum = 0;
+           animating = true;
+           return;
+        }
+        animationTime++;
+        if (animationTime == Omgeving.speed / movementSpeed) {
+            animNum += 1;
+            animationTime = 0;
+        }
+    }
+    
+    private void StopAnimation() {
+        animating = false;
+        setImage(loopDownImages[0]);
+        GreenfootImage image = getImage();
+        image.scale(50, 80); 
+        animNum = 0;
+        return;
     }
     
     private boolean atEdge(char _dir) {
@@ -120,18 +179,54 @@ public class Player extends SmoothMover
         if(actor != null) {
             int x = actor.getX();
             int y = actor.getY();
-            System.out.println("Collision: " + x + " " + y);
-            if(x < getX()) {
+            GreenfootImage colliderImage = actor.getImage();
+            int sizeX = colliderImage.getWidth();
+            int sizeY = colliderImage.getHeight();
+            
+            
+            int x1 = x - sizeX/2;
+            int x2 = x + sizeX/2;
+            int playerXRight = getX() - playerDimensionX/2;
+            int playerXLeft = getX() + playerDimensionX/2;
+            
+            
+            
+            if (x1 > playerXLeft) {
+                RightInput = false;
+            } else {
+                RightInput = true;
+            }
+            if (x2 < playerXRight) {
                 LeftInput = false;
             } else {
-                RightInput = false;
+                LeftInput = true;
             }
-            if (y < getY()) {
+            
+            int y1 = y - sizeY/2;
+            int y2 = y + sizeY/2; 
+            int playerYOnder = getY() + playerDimensionY/2;
+            int playerYBoven = getY() - playerDimensionY/2;
+            
+            if (y1 > playerYOnder) {
+                DownInput = false;
+            } else {
+                DownInput = true;
+            }
+            
+            if (y2 < playerYBoven) {
                 UpInput = false;
             } else {
-                DownInput = false;
+                UpInput = true;
             }
         }
+        
+    }
+    
+    public void normalizeInputRestrictions() {
+        RightInput=true;
+        LeftInput = true;
+        UpInput = true;
+        DownInput = true;
     }
 }
 

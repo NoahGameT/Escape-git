@@ -25,10 +25,10 @@ public class Level1 extends Omgeving
     }
     
     private void MuurPlaatsingen() {
-        Actor LangeCellMuur = new Muur(20, WorldSizeY, Color.RED);
-        Actor gayMuur = new Muur(20, 60, Color.RED);
+        Actor LangeCellMuur = new Muur(20, WorldSizeY, Color.BLACK);
+        Actor gayMuur = new Muur(300, 300, Color.RED);
         addObject(LangeCellMuur, WorldSizeX/6, WorldSizeY/2);
-        addObject(gayMuur, WorldSizeX-400, WorldSizeY/2);
+        addObject(gayMuur, 600, 600);
         return;
     }
 }
