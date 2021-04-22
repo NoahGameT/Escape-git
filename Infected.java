@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Infected extends SmoothMover
+public class Infected extends ExtraFuncties
 {
     /**
      * Act - do whatever the Infected wants to do. This method is called whenever

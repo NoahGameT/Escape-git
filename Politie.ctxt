@@ -1,11 +1,13 @@
 #BlueJ class context
 comment0.target=Politie
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Politie\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=x1\ y1\ x2\ y2\ duration
-comment1.target=Politie(int,\ int,\ int,\ int,\ float)
+comment1.params=x1\ y1\ x2\ y2\ duration\ interval
+comment1.target=Politie(int,\ int,\ int,\ int,\ float,\ int)
 comment2.params=
 comment2.target=void\ act()
 comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Politie\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
-comment3.params=x1\ y1\ x2\ y2\ tijd
-comment3.target=void\ Lopen(int,\ int,\ int,\ int,\ float)
-numComments=4
+comment3.params=x1\ y1\ x2\ y2\ tijd\ interval
+comment3.target=void\ Lopen(int,\ int,\ int,\ int,\ float,\ int)
+comment4.params=
+comment4.target=void\ generateIntervalTimer()
+numComments=5

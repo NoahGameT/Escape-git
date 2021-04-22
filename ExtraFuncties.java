@@ -11,7 +11,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
  * 
  * @version 3.0
  */
-public abstract class SmoothMover extends Actor
+public abstract class ExtraFuncties extends Actor
 {
     private double exactX;
     private double exactY;

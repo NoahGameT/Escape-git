@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Player extends SmoothMover
+public class Player extends ExtraFuncties
 {
     /// 
     /// Player class
@@ -17,7 +17,11 @@ public class Player extends SmoothMover
     public int playerDimensionX = playerImage.getWidth();
     public int playerDimensionY = playerImage.getHeight();
     
-    public int movementSpeed = 1; // Pixels per frame.
+    private int imageScaleX = 75;
+    private int imageScaleY = 120;
+    
+    
+    public int movementSpeed = 5; // Pixels per frame.
     private boolean UpInput = true;
     private boolean LeftInput = true;
     private boolean RightInput = true;
@@ -36,15 +40,16 @@ public class Player extends SmoothMover
     public Player() {
         System.out.println("X: " + playerDimensionX + " Y: " + playerDimensionY);
         GreenfootImage img = getImage();
-        img.scale(50,80);
+        img.scale(imageScaleX,imageScaleY);
     }
     
     public void act() 
     {
         movePlayer();
-        normalizeInputRestrictions();
+        //normalizeInputRestrictions();
         Collision(Muur.class);
         Collision(Politie.class);
+        Collision(OnzichtbareMuur.class);
     }
     
     private int[] getPlayerInput() {
@@ -86,56 +91,10 @@ public class Player extends SmoothMover
         AnimatePlayer(playerInput);
     }
     
-    private void AnimatePlayer(int[] _playerInput) {
-        if(_playerInput[0] == 0 && _playerInput[1] == 0) {
-            StopAnimation();
-        }
-        else if (_playerInput[1] > 0) {
-            PlayAnimation(loopDownImages);
-        } else if (_playerInput[1] < 0) {
-            PlayAnimation(loopUpImages);
-        } else if (_playerInput[0] > 0) {
-            PlayAnimation(loopRightImages);
-        } else if (_playerInput[0] < 0) {
-            PlayAnimation(loopLeftImages);
-        } else {
-            StopAnimation();
-        }
-    }
-    
-    private void PlayAnimation(GreenfootImage[] images) {
-        if (animNum == images.length) {
-            animNum = 0;
-        }
-        if(animating) {
-           setImage(images[animNum]);
-           GreenfootImage image = getImage();
-           image.scale(50, 80);
-        } else {
-           animNum = 0;
-           animating = true;
-           return;
-        }
-        animationTime++;
-        if (animationTime == Omgeving.speed / movementSpeed) {
-            animNum += 1;
-            animationTime = 0;
-        }
-    }
-    
-    private void StopAnimation() {
-        animating = false;
-        setImage(loopDownImages[0]);
-        GreenfootImage image = getImage();
-        image.scale(50, 80); 
-        animNum = 0;
-        return;
-    }
-    
     private boolean atEdge(char _dir) {
         if (_dir == 'l') {
             
-           if (getX() <= playerDimensionX/2) {
+           if (getX() <= playerDimensionX) {
                return true;
            }
            else {
@@ -144,7 +103,7 @@ public class Player extends SmoothMover
            
         } else if (_dir == 'r') {
             
-           if (getX() >= (Omgeving.WorldSizeX - playerDimensionX/2)) {
+           if (getX() >= (Omgeving.WorldSizeX - playerDimensionX)) {
                return true;
            }
            else {
@@ -153,7 +112,7 @@ public class Player extends SmoothMover
            
         } else if(_dir == 'u') {
            
-           if (getY() <= playerDimensionY/2) {
+           if (getY() <= playerDimensionY) {
                System.out.println(getY() + " " + playerDimensionY);
                return true;
            } else {
@@ -161,7 +120,7 @@ public class Player extends SmoothMover
            }           
         } else if(_dir == 'd') { 
            
-           if (getY() >= (Omgeving.WorldSizeY - playerDimensionY/2)) {
+           if (getY() >= (Omgeving.WorldSizeY - playerDimensionY)) {
                return true;
            } else {
                return false;
@@ -220,6 +179,52 @@ public class Player extends SmoothMover
             }
         }
         
+    }
+    
+    private void AnimatePlayer(int[] _playerInput) {
+        if(_playerInput[0] == 0 && _playerInput[1] == 0) {
+            StopAnimation();
+        }
+        else if (_playerInput[1] > 0) {
+            PlayAnimation(loopDownImages);
+        } else if (_playerInput[1] < 0) {
+            PlayAnimation(loopUpImages);
+        } else if (_playerInput[0] > 0) {
+            PlayAnimation(loopRightImages);
+        } else if (_playerInput[0] < 0) {
+            PlayAnimation(loopLeftImages);
+        } else {
+            StopAnimation();
+        }
+    }
+    
+    private void PlayAnimation(GreenfootImage[] images) {
+        if (animNum == images.length) {
+            animNum = 0;
+        }
+        if(animating) {
+           setImage(images[animNum]);
+           GreenfootImage image = getImage();
+           image.scale(imageScaleX, imageScaleY);
+        } else {
+           animNum = 0;
+           animating = true;
+           return;
+        }
+        animationTime++;
+        if (animationTime == Omgeving.speed / movementSpeed) {
+            animNum += 1;
+            animationTime = 0;
+        }
+    }
+    
+    private void StopAnimation() {
+        animating = false;
+        setImage(loopDownImages[0]);
+        GreenfootImage image = getImage();
+        image.scale(imageScaleX, imageScaleY); 
+        animNum = 0;
+        return;
     }
     
     public void normalizeInputRestrictions() {

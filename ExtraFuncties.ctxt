@@ -1,5 +1,5 @@
 #BlueJ class context
-comment0.target=SmoothMover
+comment0.target=ExtraFuncties
 comment0.text=\r\n\ A\ variation\ of\ an\ actor\ that\ maintains\ a\ precise\ location\ (using\ doubles\ for\ the\ co-ordinates\r\n\ instead\ of\ ints).\ \ This\ allows\ small\ precise\ movements\ (e.g.\ movements\ of\ 1\ pixel\ or\ less)\r\n\ that\ do\ not\ lose\ precision.\r\n\ \r\n\ @author\ Poul\ Henriksen\r\n\ @author\ Michael\ Kolling\r\n\ @author\ Neil\ Brown\r\n\ \r\n\ @version\ 3.0\r\n
 comment1.params=distance
 comment1.target=void\ move(int)

@@ -17,7 +17,7 @@ public class Level1 extends Omgeving
     {    
         super(WorldSizeX, WorldSizeY, PixelSize);
         Actor Player = new Player();
-        Actor Politie = new Politie(400, 200, 600, 600, 6);
+        Actor Politie = new Politie(400, 200, 400, 400, 1, 3);
         MuurPlaatsingen();
         
         addObject(Politie, 400, 200);
@@ -25,10 +25,35 @@ public class Level1 extends Omgeving
     }
     
     private void MuurPlaatsingen() {
-        Actor LangeCellMuur = new Muur(20, WorldSizeY, Color.BLACK);
-        Actor gayMuur = new Muur(300, 300, Color.RED);
-        addObject(LangeCellMuur, WorldSizeX/6, WorldSizeY/2);
-        addObject(gayMuur, 600, 600);
+        NieuweMuur(250, 700+WorldSizeY/2, 20, 500, Color.BLACK);
+        NieuweMuur(125, 240, 255, 20, Color.BLACK);
+        NieuweNepMuur(250, WorldSizeY/2, 20, 250, Color.GRAY);
+        NieuweOnzichtbareMuur(WorldSizeX/2, WorldSizeY/2, 30, WorldSizeY);
+        NieuweText("test", 20, Color.BLACK, null, 600, 400);
         return;
+    }
+    
+    
+    private void NieuweMuur(int x, int y, int width, int height, Color color) {
+        Actor muur = new Muur(width, height, color);
+        addObject(muur, x, y);
+        return;
+    }
+    
+    private void NieuweOnzichtbareMuur(int x, int y, int width, int height) {
+        Actor invisibleWall = new OnzichtbareMuur(width, height);
+        addObject(invisibleWall, x, y);
+        return;
+    }
+    
+    private void NieuweNepMuur(int x, int y, int width, int height, Color color) {
+        Actor nepmuur = new NepMuur(width, height, color);
+        addObject(nepmuur, x, y);
+        return;
+    }
+    
+    private void NieuweText(String text, int fontsize, Color color, Color bgColor, int x, int y) {
+        Actor TextElement = new Text(text, fontsize, color, bgColor);
+        addObject(TextElement, x,y);
     }
 }
