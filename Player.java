@@ -46,7 +46,6 @@ public class Player extends ExtraFuncties
     public void act() 
     {
         movePlayer();
-        //normalizeInputRestrictions();
         Collision(Muur.class);
         Collision(Politie.class);
         Collision(OnzichtbareMuur.class);
@@ -227,11 +226,9 @@ public class Player extends ExtraFuncties
         return;
     }
     
-    public void normalizeInputRestrictions() {
-        RightInput=true;
-        LeftInput = true;
-        UpInput = true;
-        DownInput = true;
+    public int[] getPlayerPos() {
+        int[] pos = {getX(), getY()};
+        return pos;
     }
 }
 

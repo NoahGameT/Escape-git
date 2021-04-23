@@ -21,14 +21,16 @@ public class Level1 extends Omgeving
         MuurPlaatsingen();
         
         addObject(Politie, 400, 200);
+        addObject(new Zaklamp(Player), 0, 0);
         addObject(Player, WorldSizeX/4, WorldSizeY/4);
+        
     }
     
     private void MuurPlaatsingen() {
         NieuweMuur(250, 700+WorldSizeY/2, 20, 500, Color.BLACK);
         NieuweMuur(125, 240, 255, 20, Color.BLACK);
         NieuweNepMuur(250, WorldSizeY/2, 20, 250, Color.GRAY);
-        NieuweOnzichtbareMuur(WorldSizeX/2, WorldSizeY/2, 30, WorldSizeY);
+        //NieuweOnzichtbareMuur(WorldSizeX/2, WorldSizeY/2, 30, WorldSizeY);
         NieuweText("test", 20, Color.BLACK, null, 600, 400);
         return;
     }
