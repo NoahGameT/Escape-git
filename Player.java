@@ -21,7 +21,7 @@ public class Player extends ExtraFuncties
     private int imageScaleY = 120;
     
     
-    public int movementSpeed = 5; // Pixels per frame.
+    public int movementSpeed = 2; // Pixels per frame.
     private boolean UpInput = true;
     private boolean LeftInput = true;
     private boolean RightInput = true;
@@ -52,7 +52,7 @@ public class Player extends ExtraFuncties
     }
     
     private int[] getPlayerInput() {
-        int[] inputs = {0,0};
+        int[] inputs = {0, 0};
         if (Greenfoot.isKeyDown("w") && UpInput == true) {
             inputs[1] += -1;
         } 
@@ -93,7 +93,7 @@ public class Player extends ExtraFuncties
     private boolean atEdge(char _dir) {
         if (_dir == 'l') {
             
-           if (getX() <= playerDimensionX) {
+           if (getX() <= getPlayerWidth()/2) {
                return true;
            }
            else {
@@ -102,7 +102,7 @@ public class Player extends ExtraFuncties
            
         } else if (_dir == 'r') {
             
-           if (getX() >= (Omgeving.WorldSizeX - playerDimensionX)) {
+           if (getX() >= (Omgeving.WorldSizeX - getPlayerWidth()/2)) {
                return true;
            }
            else {
@@ -111,7 +111,7 @@ public class Player extends ExtraFuncties
            
         } else if(_dir == 'u') {
            
-           if (getY() <= playerDimensionY) {
+           if (getY() <= getPlayerHeight()/2) {
                System.out.println(getY() + " " + playerDimensionY);
                return true;
            } else {
@@ -119,7 +119,7 @@ public class Player extends ExtraFuncties
            }           
         } else if(_dir == 'd') { 
            
-           if (getY() >= (Omgeving.WorldSizeY - playerDimensionY)) {
+           if (getY() >= (Omgeving.WorldSizeY - getPlayerHeight()/2)) {
                return true;
            } else {
                return false;
@@ -224,6 +224,18 @@ public class Player extends ExtraFuncties
         image.scale(imageScaleX, imageScaleY); 
         animNum = 0;
         return;
+    }
+    
+    private int getPlayerWidth() {
+        GreenfootImage image = getImage();
+        int width = image.getWidth();
+        return width;
+    }
+    
+    private int getPlayerHeight() {
+        GreenfootImage image = getImage();
+        int height = image.getHeight();
+        return height;
     }
     
     public int[] getPlayerPos() {

@@ -12,6 +12,8 @@ public class Level2 extends Omgeving
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(WorldSizeX, WorldSizeY, PixelSize);
         Actor Player = new Player();
+        addObject(new Zaklamp(Player), 0, 0);
         addObject(Player, WorldSizeX/2, WorldSizeY/2);
+        
     }
 }

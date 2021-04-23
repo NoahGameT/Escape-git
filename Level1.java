@@ -21,7 +21,7 @@ public class Level1 extends Omgeving
         MuurPlaatsingen();
         
         addObject(Politie, 400, 200);
-        addObject(new Zaklamp(Player), 0, 0);
+        
         addObject(Player, WorldSizeX/4, WorldSizeY/4);
         
     }
