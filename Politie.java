@@ -17,6 +17,8 @@ public class Politie extends ExtraFuncties
     private boolean timerBegonnen = false;
     private boolean aanHetTerugLopen = false;
     
+    double deltaX;
+    double deltaY;
     
     private long startTime = System.currentTimeMillis();
     private double deltaTime;
@@ -46,8 +48,8 @@ public class Politie extends ExtraFuncties
     }
     
     private void Lopen(int x1, int y1, int x2, int y2, float tijd, int interval) {
-        double deltaX = (x2-x1)/(deltaTime * tijd);
-        double deltaY = (y2-y1)/(deltaTime * tijd);
+        deltaX = (x2-x1)/(deltaTime * tijd);
+        deltaY = (y2-y1)/(deltaTime * tijd);
         if(firstRun) {
            deltaX = 0.001;
            deltaY = 0.001;
@@ -59,7 +61,6 @@ public class Politie extends ExtraFuncties
         if(terugLopen) {
             
             if ((System.currentTimeMillis() - intervalStart) >= interval * 1000 || aanHetTerugLopen) {
-                System.out.println(intervalStart - System.currentTimeMillis());
                 x = getExactX() - deltaX;
                 y = getExactY() - deltaY;
                 aanHetTerugLopen = true;
@@ -77,7 +78,6 @@ public class Politie extends ExtraFuncties
         } else if(getExactX() <= x1 || getExactY() <= y1) {
             terugLopen = false;
         }
-        System.out.println(terugLopen);
         setLocation(x, y);
     }
     
@@ -87,6 +87,13 @@ public class Politie extends ExtraFuncties
             timerBegonnen = true;
         }
     }
+    
+    private void AnimateNPC() {
+        
+    }
+    
+    
+    
 }
 
 

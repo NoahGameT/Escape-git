@@ -133,51 +133,49 @@ public class Player extends ExtraFuncties
     }
     
     public void Collision(java.lang.Class collider) {
-        Actor actor = getOneIntersectingObject(collider);
-        if(actor != null) {
-            int x = actor.getX();
-            int y = actor.getY();
-            GreenfootImage colliderImage = actor.getImage();
-            int sizeX = colliderImage.getWidth();
-            int sizeY = colliderImage.getHeight();
-            
-            
-            int x1 = x - sizeX/2;
-            int x2 = x + sizeX/2;
-            int playerXRight = getX() - playerDimensionX/2;
-            int playerXLeft = getX() + playerDimensionX/2;
-            
-            
-            
-            if (x1 > playerXLeft) {
-                RightInput = false;
-            } else {
-                RightInput = true;
-            }
-            if (x2 < playerXRight) {
-                LeftInput = false;
-            } else {
-                LeftInput = true;
-            }
-            
-            int y1 = y - sizeY/2;
-            int y2 = y + sizeY/2; 
-            int playerYOnder = getY() + playerDimensionY/2;
-            int playerYBoven = getY() - playerDimensionY/2;
-            
-            if (y1 > playerYOnder) {
-                DownInput = false;
-            } else {
-                DownInput = true;
-            }
-            
-            if (y2 < playerYBoven) {
-                UpInput = false;
-            } else {
-                UpInput = true;
+        for (Object obj : getIntersectingObjects(collider))
+        {
+            Actor actor = (Actor) obj;
+            if(actor != null) {
+                int x = actor.getX();
+                int y = actor.getY();
+                GreenfootImage colliderImage = actor.getImage();
+                int sizeX = colliderImage.getWidth();
+                int sizeY = colliderImage.getHeight();
+                
+                
+                int x1 = x - sizeX/2;
+                int x2 = x + sizeX/2;
+                int playerXRight = getX() - playerDimensionX/2;
+                int playerXLeft = getX() + playerDimensionX/2;
+                
+                
+                
+                if (x1 > playerXLeft) {
+                    RightInput = false;
+                    System.out.println("Rechts uit");
+                }
+                if (x2 < playerXRight) {
+                    LeftInput = false;
+                    System.out.println("Links uit");
+                }
+                
+                int y1 = y - sizeY/2;
+                int y2 = y + sizeY/2; 
+                int playerYOnder = getY() + playerDimensionY/2;
+                int playerYBoven = getY() - playerDimensionY/2;
+                
+                if (y1 > playerYOnder) {
+                    DownInput = false;
+                    System.out.println("Links uit");
+                }
+                
+                if (y2 < playerYBoven) {
+                    UpInput = false;
+                    System.out.println("Links uit");
+                }
             }
         }
-        
     }
     
     private void AnimatePlayer(int[] _playerInput) {

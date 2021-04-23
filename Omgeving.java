@@ -23,8 +23,8 @@ public class Omgeving extends World
         Greenfoot.setSpeed(speed);
     }
     
-    public static int WorldSizeX = 2000;
-    public static int WorldSizeY = 900;
+    public static int WorldSizeX = 1200;
+    public static int WorldSizeY = 800;
     public static int PixelSize = 1;
     
     

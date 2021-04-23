@@ -10,4 +10,6 @@ comment3.params=x1\ y1\ x2\ y2\ tijd\ interval
 comment3.target=void\ Lopen(int,\ int,\ int,\ int,\ float,\ int)
 comment4.params=
 comment4.target=void\ generateIntervalTimer()
-numComments=5
+comment5.params=
+comment5.target=void\ AnimateNPC()
+numComments=6

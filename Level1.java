@@ -13,25 +13,36 @@ public class Level1 extends Omgeving
      * Constructor for objects of class MyWorld.
      * 
      */
+    
+    private String bg_dicht = "/backgrounds/lvl_1/prison_dicht.png";
+    private String bg_open = "/backgrounds/lvl_1/prison_open.png";
+    private String bg = bg_dicht;
+    
     public Level1()
     {    
         super(WorldSizeX, WorldSizeY, PixelSize);
+        GreenfootImage prison_dicht = new GreenfootImage("/backgrounds/lvl_1/prison_dicht.png");
+        prison_dicht.scale(getWidth(), getHeight());
+        setBackground(prison_dicht);
         Actor Player = new Player();
-        Actor Politie = new Politie(400, 200, 400, 400, 1, 3);
         MuurPlaatsingen();
         
-        addObject(Politie, 400, 200);
+        Actor Politie = new Politie(300, 200, 300, 800, 1, 3);
+        addObject(Politie, 300, 200);
         
-        addObject(Player, WorldSizeX/4, WorldSizeY/4);
+        addObject(Player, 368, 650);
         
     }
     
     private void MuurPlaatsingen() {
-        NieuweMuur(250, 700+WorldSizeY/2, 20, 500, Color.BLACK);
-        NieuweMuur(125, 240, 255, 20, Color.BLACK);
-        NieuweNepMuur(250, WorldSizeY/2, 20, 250, Color.GRAY);
-        //NieuweOnzichtbareMuur(WorldSizeX/2, WorldSizeY/2, 30, WorldSizeY);
-        NieuweText("test", 20, Color.BLACK, null, 600, 400);
+        NieuweOnzichtbareMuur(26, 400, 52, 800);
+        NieuweOnzichtbareMuur(WorldSizeX/2, 120, WorldSizeX, 240);
+        NieuweOnzichtbareMuur(842, 620, 775, 300);
+        NieuweOnzichtbareMuur(256, 650, 53, 300);
+        NieuweOnzichtbareMuur(WorldSizeX/2, 773, WorldSizeX, 70);
+        if (bg == bg_dicht) {
+            NieuweOnzichtbareMuur(368, 515, 175, 70);
+        }
         return;
     }
     
