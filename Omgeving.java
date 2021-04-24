@@ -26,6 +26,9 @@ public class Omgeving extends World
     public static int WorldSizeX = 1200;
     public static int WorldSizeY = 800;
     public static int PixelSize = 1;
+    public static int ActorSizeX = 75;
+    public static int ActorSizeY = 120;
+    
     
     
     

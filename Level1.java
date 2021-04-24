@@ -14,24 +14,36 @@ public class Level1 extends Omgeving
      * 
      */
     
-    private String bg_dicht = "/backgrounds/lvl_1/prison_dicht.png";
-    private String bg_open = "/backgrounds/lvl_1/prison_open.png";
-    private String bg = bg_dicht;
+    public boolean CellOpen = false;
+    Actor Celldeur = new OnzichtbareMuur(175, 70);
+    
+    GreenfootImage prison_dicht = new GreenfootImage("/backgrounds/lvl_1/prison_dicht.png");
+    GreenfootImage prison_open = new GreenfootImage("/backgrounds/lvl_1/prison_open.png");
     
     public Level1()
     {    
         super(WorldSizeX, WorldSizeY, PixelSize);
-        GreenfootImage prison_dicht = new GreenfootImage("/backgrounds/lvl_1/prison_dicht.png");
-        prison_dicht.scale(getWidth(), getHeight());
+        
         setBackground(prison_dicht);
+        GreenfootImage image = getBackground();
+        image.scale(getWidth(), getHeight());
+        
+        
+        // Actors
         Actor Player = new Player();
+        Actor Politie = new Politie(300, 400, 600, 400, 3, 1);
+        Gun Pistool = new Gun(20, true, GunType.Pistool); // TODO: Meer wapens door middel van type!
+        
+        // Objecten toevoegen aan het scenario
         MuurPlaatsingen();
-        
-        Actor Politie = new Politie(300, 200, 300, 800, 1, 3);
-        addObject(Politie, 300, 200);
-        
+        addObject(Politie, 300, 400);
+        addObject(Pistool, 150, 675);
         addObject(Player, 368, 650);
         
+    }
+    
+    public void act() {
+        OpenDeur();
     }
     
     private void MuurPlaatsingen() {
@@ -40,8 +52,8 @@ public class Level1 extends Omgeving
         NieuweOnzichtbareMuur(842, 620, 775, 300);
         NieuweOnzichtbareMuur(256, 650, 53, 300);
         NieuweOnzichtbareMuur(WorldSizeX/2, 773, WorldSizeX, 70);
-        if (bg == bg_dicht) {
-            NieuweOnzichtbareMuur(368, 515, 175, 70);
+        if (!CellOpen) {
+            addObject(Celldeur, 368, 515);
         }
         return;
     }
@@ -69,4 +81,13 @@ public class Level1 extends Omgeving
         Actor TextElement = new Text(text, fontsize, color, bgColor);
         addObject(TextElement, x,y);
     }
+    
+    private void OpenDeur() {
+        if (Greenfoot.isKeyDown("f")) {
+            setBackground(prison_open);
+            CellOpen = true;
+            removeObject(Celldeur);
+        }
+    }
+    
 }

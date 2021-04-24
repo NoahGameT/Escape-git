@@ -12,6 +12,14 @@ public class Ammo extends Pickups
      * Act - do whatever the Ammo wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    
+    int bounceFactor;
+    
+    public Ammo(int _bounceFactor, boolean bounce) {
+        super(_bounceFactor,bounce);
+        bounceFactor = _bounceFactor;
+    }
+    
     public void act() 
     {
         // Add your action code here.

@@ -153,11 +153,9 @@ public class Player extends ExtraFuncties
                 
                 if (x1 > playerXLeft) {
                     RightInput = false;
-                    System.out.println("Rechts uit");
                 }
                 if (x2 < playerXRight) {
                     LeftInput = false;
-                    System.out.println("Links uit");
                 }
                 
                 int y1 = y - sizeY/2;
@@ -167,12 +165,10 @@ public class Player extends ExtraFuncties
                 
                 if (y1 > playerYOnder) {
                     DownInput = false;
-                    System.out.println("Links uit");
                 }
                 
                 if (y2 < playerYBoven) {
                     UpInput = false;
-                    System.out.println("Links uit");
                 }
             }
         }
