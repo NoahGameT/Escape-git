@@ -17,6 +17,9 @@ public class HomeScreen extends Omgeving
     {
         super(WorldSizeX, WorldSizeY, PixelSize);
         
+        StartKnop startKnop = new StartKnop();
+        addObject(startKnop, 275, 490);
+        
     }
     
     

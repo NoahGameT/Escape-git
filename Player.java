@@ -253,7 +253,6 @@ public class Player extends ExtraFuncties
     
     private void StopAnimation() {
         animating = false;
-        System.out.println("Hier gekomen");
         if (lastPlayedSprite != null) {
             //System.out.println("Hier gekomen");
             setImage(lastPlayedSprite[0]);

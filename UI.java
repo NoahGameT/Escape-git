@@ -19,13 +19,21 @@ public class UI extends Actor
     
     public boolean buttonHovered() {
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        int mouseX = mouse.getX();
-        int mouseY = mouse.getY();
-        
-        if (mouseX < getImage().getWidth()/2 + getX() && mouseX > getX() - getImage().getWidth()/2 && 
-        mouseY > getY() - getImage().getHeight()/2 && mouseY < getY() + getImage().getHeight()/2) {
-            return true;
+        if (mouse !=null) {
+            int mouseX = mouse.getX();
+            int mouseY = mouse.getY();
+            
+            if (mouseX < getImage().getWidth()/2 + getX() && mouseX > getX() - getImage().getWidth()/2 && 
+            mouseY > getY() - getImage().getHeight()/2 && mouseY < getY() + getImage().getHeight()/2) {
+                System.out.println("Er binnen");
+                return true;
+                
+            } else {
+                System.out.println("Er buiten");
+                return false;
+            }
         } else {
+            System.out.println("geen muis");
             return false;
         }
     }

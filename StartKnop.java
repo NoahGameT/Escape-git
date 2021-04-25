@@ -12,10 +12,19 @@ public class StartKnop extends UI
      * Act - do whatever the StartKnop wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    
+    boolean isHovered = false;
+    int width = getImage().getWidth();
+    int height = getImage().getHeight();
+    
     public void act() 
     {
-        if (buttonHovered()) {
-            System.out.println("Werkt");
+        if (buttonHovered() && !isHovered) {
+            isHovered = true;
+            getImage().scale(width + 20, height + 20);
+        } else {
+            getImage().scale(width, height);
+            isHovered = false;
         }
     }    
 }
