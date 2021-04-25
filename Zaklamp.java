@@ -16,7 +16,7 @@ public class Zaklamp extends Actor
     
     public void act() 
     {
-        turnAround();
+        //turnAround();
         GreenfootImage image = getImage();
         image.scale(Omgeving.WorldSizeX*5, Omgeving.WorldSizeY*5);
         setLocation(player.getX(), player.getY());

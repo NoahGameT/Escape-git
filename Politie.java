@@ -47,6 +47,7 @@ public class Politie extends ExtraFuncties
         tijd = duration;
         tijdInterval = interval;
         setLocation(X1,Y1);
+        getImage().scale(Omgeving.ActorSizeX, Omgeving.ActorSizeY);
     }
     
     /**
@@ -56,6 +57,12 @@ public class Politie extends ExtraFuncties
     public void act() {
         long msSinceLast = System.currentTimeMillis()-startTime;
         startTime = System.currentTimeMillis();
+        System.out.println(msSinceLast);
+        if (msSinceLast <= 0) {
+            msSinceLast = 5;
+        } else if (msSinceLast > 999) {
+            msSinceLast = 5;
+        }
         deltaTime = 1000 / msSinceLast;
         Lopen(X1,Y1,X2,Y2, tijd, tijdInterval);
     }

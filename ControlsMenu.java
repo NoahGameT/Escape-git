@@ -16,6 +16,6 @@ public class ControlsMenu extends Omgeving
     public ControlsMenu()
     {
         super(WorldSizeX, WorldSizeY, PixelSize);
-        
+        addObject(new TerugKnop(), 275, 725);
     }
 }

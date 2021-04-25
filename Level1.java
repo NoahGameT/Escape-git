@@ -38,6 +38,7 @@ public class Level1 extends Omgeving
         MuurPlaatsingen();
         addObject(Politie, 300, 400);
         addObject(Pistool, 140, 675);
+        //addObject(new Zaklamp(Player), 0, 0);
         addObject(Player, 368, 650);
         
     }

@@ -19,6 +19,8 @@ public class HomeScreen extends Omgeving
         
         StartKnop startKnop = new StartKnop();
         addObject(startKnop, 275, 490);
+        ControlsKnop controlKnop = new ControlsKnop();
+        addObject(controlKnop, 275, 590);
         
     }
     
