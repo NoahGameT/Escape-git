@@ -13,17 +13,26 @@ public class Gun extends Pickups
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     int bounceFactor;
+    int speed;
+    public boolean gunPickedUp = false;
     
-    public Gun(int _bounceFactor, boolean bounce, GunType _type) {
+    public Gun(int _bounceFactor, int _speed, boolean bounce, GunType _type) {
         super(_bounceFactor,bounce);
         bounceFactor = _bounceFactor;
+        speed = _speed;
     }
     
     public void act() 
     {
         int x = getX();
         int y = getY();
-        bounce(x, y, bounceFactor, 15);
-        
+        bounce(x, y, bounceFactor, speed);
+        if (Collision(Player.class)) {
+            Player player = (Player)getActorAfterCollision(Player.class);
+            if (player != null) {
+                player.setPlayerState(PlayerState.Gevangenen_pistool);
+            }
+            getWorld().removeObject(this);
+        }
     }    
 }

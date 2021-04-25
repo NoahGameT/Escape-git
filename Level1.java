@@ -32,12 +32,12 @@ public class Level1 extends Omgeving
         // Actors
         Actor Player = new Player();
         Actor Politie = new Politie(300, 400, 600, 400, 3, 1);
-        Gun Pistool = new Gun(20, true, GunType.Pistool); // TODO: Meer wapens door middel van type!
+        Gun Pistool = new Gun(20, 10, true, GunType.Pistool); // TODO: Meer wapens door middel van type!
         
         // Objecten toevoegen aan het scenario
         MuurPlaatsingen();
         addObject(Politie, 300, 400);
-        addObject(Pistool, 150, 675);
+        addObject(Pistool, 140, 675);
         addObject(Player, 368, 650);
         
     }
@@ -83,8 +83,9 @@ public class Level1 extends Omgeving
     }
     
     private void OpenDeur() {
-        if (Greenfoot.isKeyDown("f")) {
+        if (Greenfoot.isKeyDown("f") && !CellOpen) {
             setBackground(prison_open);
+            Greenfoot.playSound("prison_door_2.wav");
             CellOpen = true;
             removeObject(Celldeur);
         }

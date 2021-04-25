@@ -33,10 +33,37 @@ public class Player extends ExtraFuncties
     private int animationTime = 0;
     private boolean animating = false;
     
-    GreenfootImage[] loopDownImages = {new GreenfootImage("/lopenNormal/down/loop-animatie-1.png"), new GreenfootImage("/lopenNormal/down/loop-animatie-2.png"), new GreenfootImage("/lopenNormal/down/loop-animatie-3.png"), new GreenfootImage("/lopenNormal/down/loop-animatie-4.png")};
-    GreenfootImage[] loopUpImages = {new GreenfootImage("/lopenNormal/up/loop-up-animatie-1.png"), new GreenfootImage("/lopenNormal/up/loop-up-animatie-2.png"), new GreenfootImage("/lopenNormal/up/loop-up-animatie-3.png"), new GreenfootImage("/lopenNormal/up/loop-up-animatie-4.png")};
-    GreenfootImage[] loopRightImages = {new GreenfootImage("/lopenNormal/right/loop-right-animatie-1.png"), new GreenfootImage("/lopenNormal/right/loop-right-animatie-2.png"), new GreenfootImage("/lopenNormal/right/loop-right-animatie-3.png"), new GreenfootImage("/lopenNormal/right/loop-right-animatie-4.png")};
-    GreenfootImage[] loopLeftImages = {new GreenfootImage("/lopenNormal/left/loop-left-animatie-1.png"), new GreenfootImage("/lopenNormal/left/loop-left-animatie-2.png"), new GreenfootImage("/lopenNormal/left/loop-left-animatie-3.png"), new GreenfootImage("/lopenNormal/left/loop-left-animatie-4.png")};
+    /* 
+     * 
+     * Alle sprites per level en per item pickup
+     * 
+     */
+    
+    /// Normale loop sprites
+    GreenfootImage[][] normaleImages = {{new GreenfootImage("/Player/normaal/down/loop-animatie-1.png"), new GreenfootImage("/Player/normaal/down/loop-animatie-2.png"), new GreenfootImage("/Player/normaal/down/loop-animatie-3.png"), new GreenfootImage("/Player/normaal/down/loop-animatie-4.png")}, 
+    {new GreenfootImage("/Player/normaal/up/loop-up-animatie-1.png"), new GreenfootImage("/Player/normaal/up/loop-up-animatie-2.png"), new GreenfootImage("/Player/normaal/up/loop-up-animatie-3.png"), new GreenfootImage("/Player/normaal/up/loop-up-animatie-4.png")},
+    {new GreenfootImage("/Player/normaal/right/loop-right-animatie-1.png"), new GreenfootImage("/Player/normaal/right/loop-right-animatie-2.png"), new GreenfootImage("/Player/normaal/right/loop-right-animatie-3.png"), new GreenfootImage("/Player/normaal/right/loop-right-animatie-4.png")},
+    {new GreenfootImage("/Player/normaal/left/loop-left-animatie-1.png"), new GreenfootImage("/Player/normaal/left/loop-left-animatie-2.png"), new GreenfootImage("/Player/normaal/left/loop-left-animatie-3.png"), new GreenfootImage("/Player/normaal/left/loop-left-animatie-4.png")}};
+    
+    /// Gevangenen loop sprites
+    GreenfootImage[][] gevangenenImages = {{new GreenfootImage("/Player/gevangenen/down/1.png"), new GreenfootImage("/Player/gevangenen/down/2.png"), new GreenfootImage("/Player/gevangenen/down/3.png"), new GreenfootImage("/Player/gevangenen/down/4.png")}, 
+    {new GreenfootImage("/Player/gevangenen/up/1.png"), new GreenfootImage("/Player/gevangenen/up/2.png"), new GreenfootImage("/Player/gevangenen/up/3.png"), new GreenfootImage("/Player/gevangenen/up/4.png")},
+    {new GreenfootImage("/Player/gevangenen/right/1.png"), new GreenfootImage("/Player/gevangenen/right/2.png"), new GreenfootImage("/Player/gevangenen/right/3.png"), new GreenfootImage("/Player/gevangenen/right/4.png")},
+    {new GreenfootImage("/Player/gevangenen/left/1.png"), new GreenfootImage("/Player/gevangenen/left/2.png"), new GreenfootImage("/Player/gevangenen/left/3.png"), new GreenfootImage("/Player/gevangenen/left/4.png")}};
+    
+    // Normale pistool sprites
+    GreenfootImage[][] normaalPistoolImages = {};
+    
+    // Gevangenen pistool sprites
+    GreenfootImage[][] gevangenenPistoolImages = {{new GreenfootImage("/Player/gevangenen_pistool/down/1.png"), new GreenfootImage("/Player/gevangenen_pistool/down/2.png"), new GreenfootImage("/Player/gevangenen_pistool/down/3.png"), new GreenfootImage("/Player/gevangenen_pistool/down/4.png")}, 
+    {new GreenfootImage("/Player/gevangenen_pistool/up/1.png"), new GreenfootImage("/Player/gevangenen_pistool/up/2.png"), new GreenfootImage("/Player/gevangenen_pistool/up/3.png"), new GreenfootImage("/Player/gevangenen_pistool/up/4.png")},
+    {new GreenfootImage("/Player/gevangenen_pistool/right/1.png"), new GreenfootImage("/Player/gevangenen_pistool/right/2.png"), new GreenfootImage("/Player/gevangenen_pistool/right/3.png"), new GreenfootImage("/Player/gevangenen_pistool/right/4.png")},
+    {new GreenfootImage("/Player/gevangenen_pistool/left/1.png"), new GreenfootImage("/Player/gevangenen_pistool/left/2.png"), new GreenfootImage("/Player/gevangenen_pistool/left/3.png"), new GreenfootImage("/Player/gevangenen_pistool/left/4.png")}};
+    
+    private PlayerState playerSpriteState = PlayerState.Gevangenen;
+    GreenfootImage[][] AnimationSpriteSheet;
+    GreenfootImage[] lastPlayedSprite;
+    
     public Player() {
         System.out.println("X: " + playerDimensionX + " Y: " + playerDimensionY);
         GreenfootImage img = getImage();
@@ -175,17 +202,30 @@ public class Player extends ExtraFuncties
     }
     
     private void AnimatePlayer(int[] _playerInput) {
+        if (playerSpriteState == PlayerState.Normaal) {
+            AnimationSpriteSheet = normaleImages;
+        } else if (playerSpriteState == PlayerState.Gevangenen) {
+            AnimationSpriteSheet = gevangenenImages;
+        } else if (playerSpriteState == PlayerState.Gevangenen_pistool) {
+            AnimationSpriteSheet = gevangenenPistoolImages;
+        }
+        
+        
         if(_playerInput[0] == 0 && _playerInput[1] == 0) {
             StopAnimation();
         }
         else if (_playerInput[1] > 0) {
-            PlayAnimation(loopDownImages);
+            PlayAnimation(AnimationSpriteSheet[0]);
+            lastPlayedSprite = AnimationSpriteSheet[0];
         } else if (_playerInput[1] < 0) {
-            PlayAnimation(loopUpImages);
+            PlayAnimation(AnimationSpriteSheet[1]);
+            lastPlayedSprite = AnimationSpriteSheet[1];
         } else if (_playerInput[0] > 0) {
-            PlayAnimation(loopRightImages);
+            PlayAnimation(AnimationSpriteSheet[2]);
+            lastPlayedSprite = AnimationSpriteSheet[2];
         } else if (_playerInput[0] < 0) {
-            PlayAnimation(loopLeftImages);
+            PlayAnimation(AnimationSpriteSheet[3]);
+            lastPlayedSprite = AnimationSpriteSheet[3];
         } else {
             StopAnimation();
         }
@@ -213,7 +253,13 @@ public class Player extends ExtraFuncties
     
     private void StopAnimation() {
         animating = false;
-        setImage(loopDownImages[0]);
+        System.out.println("Hier gekomen");
+        if (lastPlayedSprite != null) {
+            //System.out.println("Hier gekomen");
+            setImage(lastPlayedSprite[0]);
+        } else {
+            setImage(AnimationSpriteSheet[0][0]);
+        }
         GreenfootImage image = getImage();
         image.scale(imageScaleX, imageScaleY); 
         animNum = 0;
@@ -235,6 +281,15 @@ public class Player extends ExtraFuncties
     public int[] getPlayerPos() {
         int[] pos = {getX(), getY()};
         return pos;
+    }
+    
+    public void setPlayerState(PlayerState state) {
+        playerSpriteState = state;
+        return;
+    }
+    
+    public PlayerState getPlayerState() {
+        return playerSpriteState;
     }
 }
 

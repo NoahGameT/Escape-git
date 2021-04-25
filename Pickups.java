@@ -28,43 +28,11 @@ public class Pickups extends Actor
     public Pickups(int _bounceFactor, boolean _bounce) {
         bounceFactor = _bounceFactor;
         bounce = _bounce;
-    }
-    
-    public void start() {
-        beginX = getX();
-        beginY = getY();
-        setLocation(1000, 500);
-    }
-    
+    }    
     
     public void act() 
     {
-        if (begin) {
-            start();
-            begin = false;
-        }
         
-        
-        
-        if (timerNumber == speed) {
-            if (bounce) {
-                if (!bounceComplete) {
-                    
-                    int y = getY() - 1;
-                    if (y < beginY - bounceFactor) {
-                        bounceComplete = true;
-                    }
-                } else {
-                    int y = getY() + 1;
-                    if (y > beginY + bounceFactor) {
-                        bounceComplete = false;
-                    }
-                }
-            }
-            setLocation(getX(), y);
-            timerNumber = 0;
-        }
-        timerNumber++;
     }
     
     public void bounce(int _x, int _y, int bounceFactor, int speed) {
@@ -94,5 +62,26 @@ public class Pickups extends Actor
         }
         
         timerNumber++;
+    }
+    
+    public boolean Collision(java.lang.Class collider) {
+        for (Object obj : getIntersectingObjects(collider))
+        {
+            Actor actor = (Actor) obj;
+            if(actor != null) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    
+    public Actor getActorAfterCollision(java.lang.Class actor) {
+        Actor actorObj = getOneIntersectingObject(actor);
+        if (actorObj != null) {
+            return actorObj;
+        } else {
+            return null;
+        }
     }
 }
