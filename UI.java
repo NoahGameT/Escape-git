@@ -37,4 +37,18 @@ public class UI extends Actor
             return false;
         }
     }
+    
+    public boolean mouseClicked() {
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if (mouse !=null) {
+            int button = mouse.getButton();
+            if (button == 1 && Greenfoot.mouseClicked(null)) {
+                return true;
+            }
+        } else {
+            System.out.println("geen muis");
+            return false;
+        }
+        return false;
+    }
 }

@@ -27,6 +27,7 @@ public class Player extends ExtraFuncties
     private boolean RightInput = true;
     private boolean DownInput = true;
     private boolean WallCollide = false;
+    private char lookDirection = 'd';
     
     // Animatie variabelen
     private int animNum = 0;
@@ -213,19 +214,24 @@ public class Player extends ExtraFuncties
         
         if(_playerInput[0] == 0 && _playerInput[1] == 0) {
             StopAnimation();
+            lookDirection = 'd';
         }
         else if (_playerInput[1] > 0) {
             PlayAnimation(AnimationSpriteSheet[0]);
             lastPlayedSprite = AnimationSpriteSheet[0];
+            lookDirection = 'd';
         } else if (_playerInput[1] < 0) {
             PlayAnimation(AnimationSpriteSheet[1]);
             lastPlayedSprite = AnimationSpriteSheet[1];
+            lookDirection = 'u';
         } else if (_playerInput[0] > 0) {
             PlayAnimation(AnimationSpriteSheet[2]);
             lastPlayedSprite = AnimationSpriteSheet[2];
+            lookDirection = 'r';
         } else if (_playerInput[0] < 0) {
             PlayAnimation(AnimationSpriteSheet[3]);
             lastPlayedSprite = AnimationSpriteSheet[3];
+            lookDirection = 'l';
         } else {
             StopAnimation();
         }
@@ -289,6 +295,10 @@ public class Player extends ExtraFuncties
     
     public PlayerState getPlayerState() {
         return playerSpriteState;
+    }
+    
+    public char getPlayerLookDirection() {
+        return lookDirection;
     }
 }
 

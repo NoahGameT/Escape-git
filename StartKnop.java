@@ -16,15 +16,20 @@ public class StartKnop extends UI
     boolean isHovered = false;
     int width = getImage().getWidth();
     int height = getImage().getHeight();
+    float ratio = height/width;
+    
+    int actCount = 0;
     
     public void act() 
     {
-        if (buttonHovered() && !isHovered) {
-            isHovered = true;
-            getImage().scale(width + 20, height + 20);
+        if (buttonHovered()) {
+            if (mouseClicked()) {
+                Greenfoot.setWorld(new Level1());
+            }
         } else {
             getImage().scale(width, height);
             isHovered = false;
         }
+        actCount++;
     }    
 }

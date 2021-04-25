@@ -52,6 +52,8 @@ public class Level1 extends Omgeving
         NieuweOnzichtbareMuur(842, 620, 775, 300);
         NieuweOnzichtbareMuur(256, 650, 53, 300);
         NieuweOnzichtbareMuur(WorldSizeX/2, 773, WorldSizeX, 70);
+        NieuweOnzichtbareMuur(60, 550, 50, 70);
+        NieuweOnzichtbareMuur(230, 550, 50, 70);
         if (!CellOpen) {
             addObject(Celldeur, 368, 515);
         }
