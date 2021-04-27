@@ -31,6 +31,7 @@ public class Gun extends Pickups
             Player player = (Player)getActorAfterCollision(Player.class);
             if (player != null) {
                 player.setPlayerState(PlayerState.Gevangenen_pistool);
+                player.setGunState(true);
             }
             getWorld().removeObject(this);
         }

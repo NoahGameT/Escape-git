@@ -57,7 +57,6 @@ public class Politie extends ExtraFuncties
     public void act() {
         long msSinceLast = System.currentTimeMillis()-startTime;
         startTime = System.currentTimeMillis();
-        System.out.println(msSinceLast);
         if (msSinceLast <= 0) {
             msSinceLast = 5;
         } else if (msSinceLast > 999) {

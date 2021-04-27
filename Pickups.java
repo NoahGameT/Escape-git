@@ -44,9 +44,7 @@ public class Pickups extends Actor
         
         if (timerNumber == speed) {
             if (!bounceComplete) {
-                
                 y = getY() - 1;
-                System.out.println(getY() + " "+ y);
                 if (y < beginY - bounceFactor) {
                     bounceComplete = true;
                 }

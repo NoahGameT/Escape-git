@@ -34,6 +34,14 @@ public class Player extends ExtraFuncties
     private int animationTime = 0;
     private boolean animating = false;
     
+    // Wapenvariabelen
+    public int bulletCounter = 0;
+    private int maxBullets = 5;
+    private boolean hasGun = false;
+    private int shootCounter = 0;
+    private int shootingSpeed = 120; // interval in Acts
+    private boolean firstShot = true;
+    
     /* 
      * 
      * Alle sprites per level en per item pickup
@@ -66,7 +74,7 @@ public class Player extends ExtraFuncties
     GreenfootImage[] lastPlayedSprite;
     
     public Player() {
-        System.out.println("X: " + playerDimensionX + " Y: " + playerDimensionY);
+        //System.out.println("X: " + playerDimensionX + " Y: " + playerDimensionY);
         GreenfootImage img = getImage();
         img.scale(imageScaleX,imageScaleY);
     }
@@ -74,9 +82,32 @@ public class Player extends ExtraFuncties
     public void act() 
     {
         movePlayer();
-        Collision(Muur.class);
+        checkKeys();
         Collision(Politie.class);
         Collision(OnzichtbareMuur.class);
+    }
+    
+    private void checkKeys() {
+        if (Greenfoot.isKeyDown("space") && firstShot) {
+            shootCounter = shootingSpeed;
+            firstShot = false;
+        }
+        if (!Greenfoot.isKeyDown("space")) {
+            firstShot = true;
+        }
+        if (Greenfoot.isKeyDown("space") && bulletCounter < maxBullets && hasGun && shootCounter == shootingSpeed) {
+            fireBullet();
+            shootCounter = 0;
+        }
+        shootCounter++;
+    }
+    
+    /**
+     * Maak een nieuwe kogel en zet het op de juiste plek.
+     */
+    private void fireBullet() {
+        getWorld().addObject(new Bullet(this), getX(), getY());
+        bulletCounter++;
     }
     
     private int[] getPlayerInput() {
@@ -214,7 +245,6 @@ public class Player extends ExtraFuncties
         
         if(_playerInput[0] == 0 && _playerInput[1] == 0) {
             StopAnimation();
-            lookDirection = 'd';
         }
         else if (_playerInput[1] > 0) {
             PlayAnimation(AnimationSpriteSheet[0]);
@@ -260,7 +290,6 @@ public class Player extends ExtraFuncties
     private void StopAnimation() {
         animating = false;
         if (lastPlayedSprite != null) {
-            //System.out.println("Hier gekomen");
             setImage(lastPlayedSprite[0]);
         } else {
             setImage(AnimationSpriteSheet[0][0]);
@@ -297,7 +326,11 @@ public class Player extends ExtraFuncties
         return playerSpriteState;
     }
     
-    public char getPlayerLookDirection() {
+    public void setGunState(boolean _hasGun) {
+        hasGun = _hasGun;
+    }
+    
+    public char getPlayerDirection() {
         return lookDirection;
     }
 }
