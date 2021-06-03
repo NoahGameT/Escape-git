@@ -49,13 +49,16 @@ public class Bullet extends ExtraFuncties
         Greenfoot.playSound("gun_firing.mp3");
     }
     
+    /**
+     * Remove the bullet from the world.
+     */
     private void removeBullet() {
         player.bulletCounter--;
         getWorld().removeObject(this);
     }
     
     /**
-     * Verwijder kogel als hij het scherm verlaat.
+     * Remove the bullet if it has hit an edge.
      */
     private void checkAtEdge() {
         
@@ -88,10 +91,25 @@ public class Bullet extends ExtraFuncties
     }
     
     /**
-     * Check if the bullet has collided with a object.
+     * Check if the bullet has collided with an object.
      */
     private void checkCollision() {
-        if (Collision(Politie.class) || Collision(OnzichtbareMuur.class)) {
+        // Remove only the bullet if it has hit an edge.
+        if (Collision(OnzichtbareMuur.class)) {
+            removeBullet();
+        } 
+        // Remove the bullet and a policeman or infected if the bullet has hit either of them.
+        else if (Collision(Infected.class)) {
+            Actor actor = getActorAfterCollision(Infected.class);
+            getWorld().removeObject(actor);
+            removeBullet();
+            Greenfoot.playSound("infected_death.wav");
+        } else if (Collision(Politie.class)) {
+            Actor actor = getActorAfterCollision(Politie.class);
+            getWorld().removeObject(actor);
+            removeBullet();
+        } // Remove the bullet if it has hit a wall.
+        else if (Collision(Muur.class) | Collision(OnzichtbareMuur.class)) {
             removeBullet();
         }
     }

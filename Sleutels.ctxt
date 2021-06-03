@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Sleutels
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Sleutels\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=_player\ _politie
+comment1.target=Sleutels(Player,\ greenfoot.Actor)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=boolean\ keyInReach()
+numComments=4

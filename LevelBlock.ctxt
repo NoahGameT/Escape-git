@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=LevelBlock
+comment0.text=\r\n\ Load\ a\ new\ level\ when\ the\ player\ collides\ with\ a\ level\ block.\r\n\ \r\n\ @author\ Dinand\ \r\n\ @version\ 1\r\n
+comment1.params=
+comment1.target=LevelBlock()
+comment1.text=\r\n\ Create\ a\ level\ block.\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Check\ if\ the\ player\ has\ collided\ with\ the\ level\ block.\ If\ so,\ load\ a\ new\ level,\ otherwise\ do\ nothing.\r\n
+comment3.params=
+comment3.target=boolean\ checkPlayerCollision()
+comment3.text=\r\n\ Check\ if\ the\ player\ has\ collided\ with\ the\ level\ block.\r\n
+numComments=4

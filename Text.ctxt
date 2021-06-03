@@ -1,7 +1,8 @@
 #BlueJ class context
 comment0.target=Text
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Text\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=text\ fontsize\ color\ bgColor
+comment0.text=\r\n\ Make\ text\ box\ appear\ in\ the\ middle\ of\ the\ bottom\ of\ the\ screen\ when\ the\ player\ stands\ on\ an\ 'information\ block'.\r\n\ \r\n\ @author\ Dinand\ \r\n\ @version\ 2\r\n
+comment1.params=text\ _fontsize\ _color\ _bgColor
 comment1.target=Text(java.lang.String,\ int,\ greenfoot.Color,\ greenfoot.Color)
-comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Text\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
-numComments=2
+comment2.params=nieuweText
+comment2.target=void\ ChangeText(java.lang.String)
+numComments=3

@@ -1,19 +1,31 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Text here.
+ * Make text box appear in the middle of the bottom of the screen when the player stands on an 'information block'.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Dinand 
+ * @version 2
  */
 public class Text extends Actor
 {
     /**
-     * Act - do whatever the Text wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Create a new text box.
      */
-    public Text(String text, int fontsize, Color color, Color bgColor) {
-        GreenfootImage image = new GreenfootImage(text, fontsize, color, bgColor);
+    
+    private int fontsize;
+    private Color color;
+    private Color bgColor;
+    
+    public Text(String text, int _fontsize, Color _color, Color _bgColor) {
+        fontsize = _fontsize;
+        color = _color;
+        bgColor = _bgColor;
+        GreenfootImage image = new GreenfootImage(text, _fontsize, _color, _bgColor);
         setImage(image);
-    }   
+    }
+    
+    public void ChangeText(String nieuweText) {
+        GreenfootImage image = new GreenfootImage(nieuweText, fontsize, color, bgColor);
+        setImage(image);
+    }
 }

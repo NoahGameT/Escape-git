@@ -28,6 +28,8 @@ public class Politie extends ExtraFuncties
     
     private boolean firstRun = true;
     private boolean terugLopen = false;
+    private char walkDirection;
+        
     
     // Animatie variabelen
     private int animNum = 0;
@@ -64,6 +66,11 @@ public class Politie extends ExtraFuncties
         }
         deltaTime = 1000 / msSinceLast;
         Lopen(X1,Y1,X2,Y2, tijd, tijdInterval);
+        
+        if (detectsPlayer()) {
+            Omgeving.getPlayer().setGameOver(true);
+        }
+        
     }
     
     private void Lopen(int x1, int y1, int x2, int y2, float tijd, int interval) {
@@ -141,6 +148,7 @@ public class Politie extends ExtraFuncties
         }
         
         float[] npcDirections = {(float)deltaX, (float)deltaY};
+        
         AnimateNPC(npcDirections);
         setLocation(x, y);
     }
@@ -154,15 +162,20 @@ public class Politie extends ExtraFuncties
     
     private void AnimateNPC(float[] _dir) {
         if(_dir[0] == 0 && _dir[1] == 0) {
+            walkDirection = 'n';
             StopAnimation();
         }
         else if (_dir[1] > 0 && ChangeY) {
+            walkDirection = 'd';
             PlayAnimation(loopDownImages, _dir);
         } else if (_dir[1] < 0 && ChangeY) {
+            walkDirection = 'u';
             PlayAnimation(loopUpImages, _dir);
         } else if (_dir[0] > 0 && ChangeX) {
+            walkDirection = 'r';
             PlayAnimation(loopRightImages, _dir);
         } else if (_dir[0] < 0 && ChangeX) {
+            walkDirection = 'l';
             PlayAnimation(loopLeftImages, _dir);
         }
     }
@@ -195,6 +208,25 @@ public class Politie extends ExtraFuncties
         image.scale(Omgeving.ActorSizeX, Omgeving.ActorSizeY);
         animNum = 0;
         return;
+    }
+    
+    private boolean detectsPlayer() {
+        int ySpaceUpper = getY() - getImage().getHeight();
+        int ySpaceDown = getY() + getImage().getHeight();
+        int playerX = Omgeving.getPlayer().getX();
+        int playerY = Omgeving.getPlayer().getY();
+        if (walkDirection == 'l') {
+            if (getX() > playerX && ySpaceUpper < playerY-20 && ySpaceDown > playerY+20) {
+                return true;
+            }
+        } else if (walkDirection == 'r') {
+            if (getX() < playerX && ySpaceUpper < playerY+20 && ySpaceDown > playerY+20) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+        return false;
     }
 }
 

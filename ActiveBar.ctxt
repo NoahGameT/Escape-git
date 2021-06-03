@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=ActiveBar
+comment0.text=\r\n\ Make\ a\ responsive\ bar\ to\ represent\ a\ certain\ amount\ of\ something\ and\ use\ the\ class\ 'Bar'\ as\ a\ foundation.\r\n\ \r\n\ @author\ Dinand\ \r\n\ @version\ 1\r\n
+comment1.params=_width\ height\ _color\ _type
+comment1.target=ActiveBar(int,\ int,\ greenfoot.Color,\ java.lang.String)
+comment1.text=\r\n\ Initialize\ the\ activeBar\ object.\r\n
+comment2.params=delta
+comment2.target=void\ changeValue(int)
+comment2.text=\r\n\ Change\ the\ value.\r\n\ Stop\ the\ game\ if\ the\ player\ has\ died,\ otherwise\ change\ the\ length\ of\ the\ bar.\r\n
+comment3.params=
+comment3.target=void\ changeBar()
+comment3.text=\r\n\ Change\ the\ length\ of\ the\ bar.\r\n
+comment4.params=
+comment4.target=int\ getValue()
+comment4.text=\r\n\ Make\ the\ value\ available.\r\n
+comment5.params=newValue
+comment5.target=void\ setValue(int)
+comment5.text=\r\n\ Change\ the\ value\ and\ change\ the\ bar\ accoringly.\r\n
+comment6.params=
+comment6.target=int\ getWidth()
+comment6.text=\r\n\ Make\ the\ width\ available.\r\n
+numComments=7

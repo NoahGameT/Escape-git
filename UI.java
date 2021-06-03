@@ -25,15 +25,12 @@ public class UI extends Actor
             
             if (mouseX < getImage().getWidth()/2 + getX() && mouseX > getX() - getImage().getWidth()/2 && 
             mouseY > getY() - getImage().getHeight()/2 && mouseY < getY() + getImage().getHeight()/2) {
-                System.out.println("Er binnen");
                 return true;
                 
             } else {
-                System.out.println("Er buiten");
                 return false;
             }
         } else {
-            System.out.println("geen muis");
             return false;
         }
     }

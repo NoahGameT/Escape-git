@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=InformationBlock
+comment0.text=\r\n\ Make\ an\ object\ that\ makes\ a\ text\ box\ appear\ when\ the\ player\ has\ collided\ with\ the\ object\ (information\ block).\r\n\ \r\n\ @author\ Dinand\ \r\n\ @version\ 1\r\n
+comment1.params=_text
+comment1.target=InformationBlock(java.lang.String)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Make\ a\ text\ box\ appear\ when\ the\ player\ collides\ with\ the\ information\ block.\r\n
+comment3.params=
+comment3.target=boolean\ checkPlayerCollision()
+comment3.text=\r\n\ Check\ if\ the\ player\ has\ collided\ with\ the\ information\ block.\r\n
+comment4.params=
+comment4.target=void\ makeTextBox()
+comment4.text=\r\n\ Make\ the\ text\ box\ appear\ in\ the\ middle\ on\ the\ bottom\ of\ the\ screen.\r\n
+numComments=5

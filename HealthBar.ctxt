@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=HealthBar
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ HealthBar\ here.\r\n\ \r\n\ @author\ Dinand\ \r\n\ @version\ 1\r\n
+comment1.params=
+comment1.target=HealthBar()
+comment1.text=\r\n\ Create\ the\ initial\ health\ bar.\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Keep\ track\ of\ the\ player's\ health.\r\n
+comment3.params=
+comment3.target=int\ getHealth()
+comment3.text=\r\n\ Return\ the\ current\ value\ of\ health.\r\n
+comment4.params=delta
+comment4.target=void\ changeHealth(int)
+comment4.text=\r\n\ Change\ the\ health.\r\n
+comment5.params=
+comment5.target=void\ changeBar()
+comment5.text=\r\n\ Change\ the\ length\ of\ the\ health\ bar.\r\n
+numComments=6

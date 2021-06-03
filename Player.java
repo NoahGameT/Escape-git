@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 /**
  * Write a description of class Player here.
  * 
- * @author (your name) 
+ * @author Noah en Dinand
  * @version (a version number or a date)
  */
 public class Player extends ExtraFuncties
@@ -20,6 +20,7 @@ public class Player extends ExtraFuncties
     private int imageScaleX = 75;
     private int imageScaleY = 120;
     
+    public int health = 100;
     
     public int movementSpeed = 2; // Pixels per frame.
     private boolean UpInput = true;
@@ -29,10 +30,16 @@ public class Player extends ExtraFuncties
     private boolean WallCollide = false;
     private char lookDirection = 'd';
     
-    // Animatie variabelen
+    // Animatievariabelen
     private int animNum = 0;
     private int animationTime = 0;
     private boolean animating = false;
+    
+    // Barvariabelen
+    public ActiveBar healthBar;
+    public ActiveBar ammoBar;
+    public int checkpointHealth;
+    public int checkpointAmmo;
     
     // Wapenvariabelen
     public int bulletCounter = 0;
@@ -41,6 +48,18 @@ public class Player extends ExtraFuncties
     private int shootCounter = 0;
     private int shootingSpeed = 120; // interval in Acts
     private boolean firstShot = true;
+    
+    // Ammovariabelen
+    private int ammo = 0; // Initial value.
+    private int maxAmmo = 100;
+    
+    // Sleutel variabelen
+    public boolean keyCanBePickedUp;
+    public boolean keyIsPickedUp = false;
+    public boolean gotKey = false;
+    
+    
+    private boolean gameover = true;
     
     /* 
      * 
@@ -73,10 +92,11 @@ public class Player extends ExtraFuncties
     GreenfootImage[][] AnimationSpriteSheet;
     GreenfootImage[] lastPlayedSprite;
     
-    public Player() {
-        //System.out.println("X: " + playerDimensionX + " Y: " + playerDimensionY);
+    public Player(Actor _healthBar, Actor _ammoBar) {
         GreenfootImage img = getImage();
         img.scale(imageScaleX,imageScaleY);
+        healthBar = (ActiveBar)_healthBar;
+        ammoBar = (ActiveBar)_ammoBar;
     }
     
     public void act() 
@@ -85,6 +105,23 @@ public class Player extends ExtraFuncties
         checkKeys();
         Collision(Politie.class);
         Collision(OnzichtbareMuur.class);
+        Collision(Muur.class);
+        checkHitInfected();
+        checkHitHealthPack();
+        checkHitAmmo();
+        if (keyCanBePickedUp) {
+            if (Greenfoot.isKeyDown("e")) {
+                gotKey = true;
+            }
+        }        
+    }
+    
+    public void setGameOver(boolean state) {
+        gameover = state;
+    }
+    
+    public boolean getGameOver() {
+        return gameover;
     }
     
     private void checkKeys() {
@@ -95,9 +132,11 @@ public class Player extends ExtraFuncties
         if (!Greenfoot.isKeyDown("space")) {
             firstShot = true;
         }
-        if (Greenfoot.isKeyDown("space") && bulletCounter < maxBullets && hasGun && shootCounter == shootingSpeed) {
+        if (Greenfoot.isKeyDown("space") && bulletCounter < maxBullets && hasGun && shootCounter == shootingSpeed && ammo > 0) {
             fireBullet();
             shootCounter = 0;
+            ammo--;
+            ammoBar.changeValue(-(200/maxAmmo));
         }
         shootCounter++;
     }
@@ -149,6 +188,62 @@ public class Player extends ExtraFuncties
         AnimatePlayer(playerInput);
     }
     
+    /**
+     * Check if the player has hit an infected. If so, remove the infected and reduce the health.
+     */
+    private void checkHitInfected() {
+        for (Object obj : getIntersectingObjects(Infected.class)) {
+            Actor actor = (Actor) obj;
+            if(actor != null) {
+                healthBar.changeValue(-130);
+                Greenfoot.playSound("player_hit.wav");
+                getWorld().removeObject(actor);
+                Greenfoot.playSound("infected_death.wav");
+            }
+        }
+    }
+    
+    /**
+     * Increase the player's health if he has hit a health pack and if the current value of health is not maximal.
+     */
+    private void checkHitHealthPack() {
+        for (Object obj : getIntersectingObjects(HealthPack.class)) {    
+            Actor actor = (Actor) obj;
+            if (actor != null) {
+                int health = healthBar.getValue();
+                if (health < 380) {
+                    healthBar.changeValue(76);
+                    getWorld().removeObject(actor);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Increase the player's ammo if the player has collided with an ammo pack.
+     * The player's amount of ammo may not exceed the value of 'maxAmmo'.
+     */
+    private void checkHitAmmo() {
+        for (Object obj : getIntersectingObjects(Ammo.class)) {    
+            Actor actor = (Actor) obj;
+            if (actor != null && ammo < maxAmmo) {
+                int freeSpace = maxAmmo - ammo; // The amount of ammo which the player can pick up.
+                Ammo actorAmmo = (Ammo) actor;
+                if (freeSpace < 10) {
+                    // If the player's free space is less than 10, only pick up what's needed and don't remove the pack: simply decrease its value.
+                    ammo += freeSpace;
+                    actorAmmo.setValue(freeSpace);
+                    ammoBar.changeValue(200 / freeSpace);
+                } else {
+                    // Pick up all of the ammo and remove the ammo pack.
+                    ammo += actorAmmo.getValue();
+                    getWorld().removeObject(actor);
+                    ammoBar.changeValue(20);
+                }
+            }
+        }
+    }
+    
     private boolean atEdge(char _dir) {
         if (_dir == 'l') {
             
@@ -171,7 +266,6 @@ public class Player extends ExtraFuncties
         } else if(_dir == 'u') {
            
            if (getY() <= getPlayerHeight()/2) {
-               System.out.println(getY() + " " + playerDimensionY);
                return true;
            } else {
                return false;
@@ -203,22 +297,22 @@ public class Player extends ExtraFuncties
                 int sizeY = colliderImage.getHeight();
                 
                 
-                int x1 = x - sizeX/2;
-                int x2 = x + sizeX/2;
-                int playerXRight = getX() - playerDimensionX/2;
-                int playerXLeft = getX() + playerDimensionX/2;
+                int x1 = x - sizeX/2; // X-cor of the left side.
+                int x2 = x + sizeX/2; // X-cor of the right side.
+                int playerXLeft = getX() - playerDimensionX/2;
+                int playerXRight = getX() + playerDimensionX/2;
                 
                 
                 
-                if (x1 > playerXLeft) {
+                if (x1 > playerXRight) {
                     RightInput = false;
                 }
-                if (x2 < playerXRight) {
+                if (x2 < playerXLeft) {
                     LeftInput = false;
                 }
                 
-                int y1 = y - sizeY/2;
-                int y2 = y + sizeY/2; 
+                int y1 = y - sizeY/2; // Y-cor of the top.
+                int y2 = y + sizeY/2; // Y-cor of the bottom.
                 int playerYOnder = getY() + playerDimensionY/2;
                 int playerYBoven = getY() - playerDimensionY/2;
                 
@@ -282,7 +376,7 @@ public class Player extends ExtraFuncties
         }
         animationTime++;
         if (animationTime == Omgeving.speed / movementSpeed) {
-            animNum += 1;
+            animNum++;
             animationTime = 0;
         }
     }
@@ -326,12 +420,34 @@ public class Player extends ExtraFuncties
         return playerSpriteState;
     }
     
+    /**
+     * Change the player's hasGun state.
+     */
     public void setGunState(boolean _hasGun) {
         hasGun = _hasGun;
+        // Since this method will only be called when the player picks up the gun, it can be used to give the player's first ammo.
+        ammo = 10;
+        ammoBar.changeValue(20);
     }
     
     public char getPlayerDirection() {
         return lookDirection;
+    }
+    
+    public ActiveBar getHealthBar() {
+        return (ActiveBar)healthBar;
+    }
+    
+    public ActiveBar getAmmoBar() {
+        return (ActiveBar)ammoBar;
+    }
+    
+    public void setCheckpointHealth(int health) {
+        checkpointHealth = health;
+    }
+    
+    public void setCheckpointAmmo(int ammo) {
+        checkpointAmmo = ammo;
     }
 }
 
