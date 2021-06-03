@@ -65,7 +65,7 @@ public class Level3 extends Omgeving
     
     private void InfoBlokken() {
         NieuweInfoBlok("Jeetje eindelijk in de bewoonde wereld, eens kijken wat er aan de hand is.", 150, 400);
-        NieuweInfoBlok("Pff, dat ook weer gehad. Het lijkt wel of ik tegen het virus kan, misschien moet ik een vaccin maken van mijn eigen bloed.", 150, 400);
+        NieuweInfoBlok("Het lijkt wel of ik tegen het virus kan misschien moet ik een vaccin maken van mijn eigen bloed.", 1000, 150);
     }
     
     private void BruikbareDingen() {
