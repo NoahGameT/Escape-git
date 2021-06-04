@@ -25,7 +25,6 @@ public class RestartKnop extends UI
     {
         if (buttonHovered()) {
             if (mouseClicked()) {
-                Omgeving.getPlayer().setGameOver(true);
                 Greenfoot.setWorld(Omgeving.getLevel(nextLvlIndex-1));
             }
         }

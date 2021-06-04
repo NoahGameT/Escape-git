@@ -14,13 +14,15 @@ public class Level3 extends Omgeving
      * 
      */
     
+    Player _player;
+    
     public Level3()
     {
         super(WorldSizeX, WorldSizeY, PixelSize);
-        Player _player = getPlayer();
+        
         GreenfootImage bgImage = new GreenfootImage("/backgrounds/lvl_3/level_3_a_zebi_deur_dicht.png");
         setBackground(bgImage);
-        _player = initializePlayer(_player);
+        _player = initializePlayer();
         addObject(_player, 50, 400);
         ActiveBar healthBar = _player.getHealthBar();
         addObject(healthBar, 220, 760);

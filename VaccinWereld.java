@@ -1,21 +1,21 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.List;
+
 /**
- * Write a description of class Level4 here.
+ * Write a description of class VaccinWereld here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Level4 extends Omgeving
+public class VaccinWereld extends Omgeving
 {
 
     /**
-     * Constructor for objects of class Level4.
+     * Constructor for objects of class VaccinWereld.
      * 
      */
-    
     Player _player;
-    public Level4()
+    Vaccin vaccin = new Vaccin();
+    public VaccinWereld()
     {
         super(WorldSizeX, WorldSizeY, PixelSize);
         
@@ -23,7 +23,7 @@ public class Level4 extends Omgeving
         
         ActiveBar healthBar = _player.getHealthBar();
         ActiveBar ammoBar = _player.getAmmoBar();
-        addObject(_player, 50, 400);
+        addObject(_player, 1150, 400);
         
         addObject(healthBar, 220, 760);
         int healthBarX = 30 + healthBar.getValue() / 2;
@@ -33,24 +33,22 @@ public class Level4 extends Omgeving
         int ammoBarX = 30 + ammoBar.getValue() / 2;
         ammoBar.setLocation(ammoBarX, 720);
         
-        GreenfootImage bg = new GreenfootImage("/backgrounds/lvl_4/begane_grond_ziekenhuis.png");
+        GreenfootImage bg = new GreenfootImage("/backgrounds/vaccinWereld/background.png");
         setBackground(bg);
         
+        NieuweInfoBlok("Hey! het vaccin!!! Ik pak het snel op!", 1000, 400);
+        
+        addObject(vaccin, 250, 400);
+        
         MuurPlaatsingen();
-        
-        NieuweInfoBlok("Ik moet op zoek naar dat vaccin in het ziekenhuis, ik pak de lift!", 200, 400);
-        
-        SpawnInfected(1, 600, 400);
-        
-        LevelBlock lvlblock = new LevelBlock();
-        addObject(lvlblock, 1200, 400);
     }
     
-    public void act() {
-        
+    public void Act() {
+        if (vaccin.getOnPlayer()) {
+            Greenfoot.setWorld(new Einde());
+        }
     }
     
     private void MuurPlaatsingen() {
-        NieuweOnzichtbareMuur(610, 0, 500, 100);
     }
 }

@@ -40,6 +40,8 @@ public class LevelBlock extends Actor
                 Greenfoot.setWorld(new Level3());
             } else if (currentWorld instanceof Level3) {
                 Greenfoot.setWorld(new Level4());
+            } else if (currentWorld instanceof Level4) {
+                Greenfoot.setWorld(new Einde());
             }
         }
     }

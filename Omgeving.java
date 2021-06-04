@@ -21,6 +21,8 @@ public class Omgeving extends World
     
     private static Player player;
     
+    private static int difficulty = 0; // 0 voor makkelijk, 1 voor moeilijk.
+    
     public Omgeving(int WSX, int WSY, int PS)
     {   
         super(WSX, WSY, PS);
@@ -32,7 +34,11 @@ public class Omgeving extends World
     }
     
     public static Player getPlayer() {
-        return player;
+        if (player != null && player.getGameOver() == false) {
+            return player;
+        } else {
+            return null;
+        }
     }
     
     public static Player createPlayer(Actor _healthBar, Actor _ammoBar) {
@@ -40,7 +46,9 @@ public class Omgeving extends World
             return player;
     }
     
-    public Player initializePlayer(Player _player) {
+    public Player initializePlayer() {
+        Player _player = getPlayer();
+        
         if (_player == null || _player.getGameOver()) {
             // Health bar
             Actor healthBar = new ActiveBar(380, 20, Color.RED, "health");
@@ -61,17 +69,16 @@ public class Omgeving extends World
             addObject(ammoBorderBar, 130, 720);
             addObject(ammoEmptyBar, 130, 720);
             _player.setPlayerState(PlayerState.Gevangenen_pistool);
-            _player.setGunState(true);
             return _player;
         }
         
         // Initializeer objecten voor de health bar.
-        ActiveBar healthBar = _player.getHealthBar();
+        //ActiveBar healthBar = _player.getHealthBar();
         Actor healthBorderBar = new Bar(390, 30, Color.BLACK);
         Actor healthEmptyBar = new Bar(380, 20, Color.WHITE);
         
         // Initializeer objecten voor de ammo bar.
-        ActiveBar ammoBar = _player.getAmmoBar();
+        //ActiveBar ammoBar = _player.getAmmoBar();
         Actor ammoBorderBar = new Bar(210, 30, Color.BLACK);
         Actor ammoEmptyBar = new Bar(200, 20, Color.WHITE);
         
@@ -84,11 +91,12 @@ public class Omgeving extends World
         addObject(ammoBorderBar, 130, 720);
         addObject(ammoEmptyBar, 130, 720);
         _player.setGameOver(false);
+        _player.setPlayerState(PlayerState.Gevangenen_pistool);
         return _player;
     }
     
     public static World getLevel(int worldIndex) {
-        World[] levels = {new Level4(), new Level3(), new Level2(), new Level1()};
+        World[] levels = {new Level1(), new Level2(), new Level3(), new Level4()};
         return levels[worldIndex];
     }
     
@@ -123,5 +131,17 @@ public class Omgeving extends World
     public void NieuweInfoBlok(String text, int x, int y) {
         InformationBlock InfoBlok = new InformationBlock(text);
         addObject(InfoBlok, x, y);
+    }
+    
+    public static void setDifficulty(String d) {
+        if (d == "moeilijk") {
+            difficulty = 1;
+        } else {
+            difficulty = 0;
+        }
+    }
+    
+    public static int getDifficulty() {
+        return difficulty;
     }
 }

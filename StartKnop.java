@@ -24,7 +24,7 @@ public class StartKnop extends UI
     {
         if (buttonHovered()) {
             if (mouseClicked()) {
-                Greenfoot.setWorld(new Level1());
+                Greenfoot.setWorld(new Difficulty());
             }
         } else {
             getImage().scale(width, height);

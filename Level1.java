@@ -110,7 +110,7 @@ public class Level1 extends Omgeving
         }
         OpenDeur();
         if (Player.getGameOver()) {
-            Greenfoot.setWorld(new DoodScherm(1));
+            Greenfoot.setWorld(new Level1());
         }
     }
     

@@ -41,8 +41,16 @@ public class ActiveBar extends Bar
                 player.ammoBar.setValue(player.checkpointAmmo);
                 if (player.checkpointAmmo <= 0) player.ammoBar.getImage().setTransparency(0);
                 player.setGameOver(true);
-                System.out.println(player.getGameOver());
-                Greenfoot.setWorld(new DoodScherm(2));
+                World currentWorld = getWorld();
+                if (currentWorld instanceof Level1) {
+                    Greenfoot.setWorld(new Level1());
+                } else if (currentWorld instanceof Level2) {
+                    Greenfoot.setWorld(new Level2());
+                } else if (currentWorld instanceof Level3) {
+                    Greenfoot.setWorld(new Level3());
+                } else if (currentWorld instanceof Level4) {
+                    Greenfoot.setWorld(new Level4());
+                }
             }
         } else {
             int newX = getX() + delta/2;

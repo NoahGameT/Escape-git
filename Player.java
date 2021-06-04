@@ -109,6 +109,7 @@ public class Player extends ExtraFuncties
         checkHitInfected();
         checkHitHealthPack();
         checkHitAmmo();
+        checkHitVaccin();
         if (keyCanBePickedUp) {
             if (Greenfoot.isKeyDown("e")) {
                 gotKey = true;
@@ -224,7 +225,10 @@ public class Player extends ExtraFuncties
      * The player's amount of ammo may not exceed the value of 'maxAmmo'.
      */
     private void checkHitAmmo() {
-        for (Object obj : getIntersectingObjects(Ammo.class)) {    
+        for (Object obj : getIntersectingObjects(Ammo.class)) {  
+            if (ammo == 0) {
+                setGunState(true);
+            }
             Actor actor = (Actor) obj;
             if (actor != null && ammo < maxAmmo) {
                 int freeSpace = maxAmmo - ammo; // The amount of ammo which the player can pick up.
@@ -236,10 +240,20 @@ public class Player extends ExtraFuncties
                     ammoBar.changeValue(200 / freeSpace);
                 } else {
                     // Pick up all of the ammo and remove the ammo pack.
-                    ammo += actorAmmo.getValue();
+                    ammo += 10;
                     getWorld().removeObject(actor);
                     ammoBar.changeValue(20);
                 }
+            }
+        }
+    }
+    
+    private void checkHitVaccin() {
+        for (Object obj : getIntersectingObjects(Vaccin.class)) {  
+            Actor actor = (Actor) obj;
+            if (actor != null) {
+                Vaccin vaccin = (Vaccin)actor;
+                vaccin.OnPlayer();
             }
         }
     }
@@ -279,7 +293,7 @@ public class Player extends ExtraFuncties
            }
            
         } else {
-            System.out.println("[!] atEdge kreeg geen correcte character als parameter!");
+            
             return false;
             
         }
@@ -440,6 +454,10 @@ public class Player extends ExtraFuncties
     
     public ActiveBar getAmmoBar() {
         return (ActiveBar)ammoBar;
+    }
+    
+    public void addAmmo(int _ammo) {
+        ammo += _ammo; // Voeg ammo toe aan de speler.
     }
     
     public void setCheckpointHealth(int health) {

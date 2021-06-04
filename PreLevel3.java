@@ -29,15 +29,7 @@ public class PreLevel3 extends Omgeving
         super(WorldSizeX, WorldSizeY, PixelSize);
         player = getPlayer();
         
-        // Initializeer objecten voor de health bar.
-        Actor healthBar = player.getHealthBar();
-        Actor healthBorderBar = new Bar(390, 30, Color.BLACK);
-        Actor healthEmptyBar = new Bar(380, 20, Color.WHITE);
         
-        // Initializeer objecten voor de ammo bar.
-        Actor ammoBar = player.getAmmoBar();
-        Actor ammoBorderBar = new Bar(210, 30, Color.BLACK);
-        Actor ammoEmptyBar = new Bar(200, 20, Color.WHITE);
         
         if (player == null) {
             // Health bar
@@ -52,6 +44,16 @@ public class PreLevel3 extends Omgeving
             
             player = createPlayer(healthBar, ammoBar);
         }
+        
+        // Initializeer objecten voor de health bar.
+        Actor healthBar = player.getHealthBar();
+        Actor healthBorderBar = new Bar(390, 30, Color.BLACK);
+        Actor healthEmptyBar = new Bar(380, 20, Color.WHITE);
+        
+        // Initializeer objecten voor de ammo bar.
+        Actor ammoBar = player.getAmmoBar();
+        Actor ammoBorderBar = new Bar(210, 30, Color.BLACK);
+        Actor ammoEmptyBar = new Bar(200, 20, Color.WHITE);
         
         // Objecten toevoegen aan de wereld voor de health bar
         addObject(healthBorderBar, 220, 760);
@@ -76,6 +78,8 @@ public class PreLevel3 extends Omgeving
         setBackground(background);
         addObject(player, 50, 400);
         MuurPlaatsingen();
+        LevelBlock lvlblock = new LevelBlock();
+        addObject(lvlblock, 1200, 400);
     }
     
     private void MuurPlaatsingen() {

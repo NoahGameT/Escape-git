@@ -14,26 +14,21 @@ public class Level2 extends Omgeving
      * Constructor for objects of class level2.
      * 
      */
-    
+    Player _player;
     
     public Level2()
     {    
         // Create a new world with 1200x800 cells with a cell size of 1x1 pixels.
         super(WorldSizeX, WorldSizeY, PixelSize);
         
-        Player _player = getPlayer();
-        _player = initializePlayer(_player);
-        addObject(_player, 50, 455);
+        _player = initializePlayer();
+        
         
         ActiveBar healthBar = _player.getHealthBar();
-        addObject(healthBar, 220, 760);
-        int healthBarX = 30 + healthBar.getValue() / 2;
-        healthBar.setLocation(healthBarX, 760);
+        
         
         ActiveBar ammoBar = _player.getAmmoBar();
-        addObject(ammoBar, 30, 720);
-        int ammoBarX = 30 + ammoBar.getValue() / 2;
-        ammoBar.setLocation(ammoBarX, 720);
+        
         GreenfootImage bg = new GreenfootImage("/backgrounds/lvl_2/map_of_neuk.jpg");
         setBackground(bg);
         GreenfootImage image = getBackground();
@@ -76,18 +71,27 @@ public class Level2 extends Omgeving
         
         // Vijanden toevoegen aan de wereld.
         addObject(infected1, 160, 455);
-        addObject(infected2, 1110, 475); // Deze kan op de een of andere manier toch een klein stukje door een muurtje heen komen en damage doen.
+        
         addObject(infected3, 65, 195);
         addObject(infected4, 650, 65);
-        addObject(infected5, 460, 195); // Deze kan op de een of andere manier toch een klein stukje door een muurtje heen komen en damage doen.
-        addObject(infected6, 1135, 260);
+        if (Omgeving.getDifficulty() == 1) {
+            addObject(infected5, 460, 195); // Deze kan op de een of andere manier toch een klein stukje door een muurtje heen komen en damage doen.
+            addObject(infected6, 1135, 260);
+        }
+        
+        addObject(infected2, 1110, 475); // Deze kan op de een of andere manier toch een klein stukje door een muurtje heen komen en damage doen.
+        
         
         // Pick-ups toevoegen aan de wereld.
         addObject(healthPack1, 325, 725);
-        addObject(healthPack2, 780, 455);
+        
         addObject(ammo1, 65, 65);
         addObject(ammo2, 65, 585);
-        addObject(ammo3, 715, 195);
+        if (Omgeving.getDifficulty() != 1) {
+           addObject(ammo3, 715, 195);
+           addObject(healthPack2, 780, 455);
+        }
+        
         
         // Information blocks toevoegen aan de wereld.
         addObject(info1, 150, 455);
@@ -96,8 +100,16 @@ public class Level2 extends Omgeving
         
         // Zorg ervoor dat alleen de belichte gebieden zichtbaar zijn (behalve de bars).
         addObject(new Zaklamp(_player), 0, 0);
+        addObject(_player, 50, 455);
         
         
+        addObject(healthBar, 220, 760);
+        int healthBarX = 30 + healthBar.getValue() / 2;
+        healthBar.setLocation(healthBarX, 760);
+        
+        addObject(ammoBar, 30, 720);
+        int ammoBarX = 30 + ammoBar.getValue() / 2;
+        ammoBar.setLocation(ammoBarX, 720);
     }
     
     public void act() {
